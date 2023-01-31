@@ -1,10 +1,24 @@
 const num1 = Math.ceil(Math.random()*10)
 const num2 = Math.ceil(Math.random()*10)
-
+const formElement = document.getElementById("form")
 const questionElement = document.getElementById("question")
-
+const inputElement = document.getElementById("input")
 questionElement.innerText = `${num1} x ${num2}`;
 
+let score = JSON.parse (localStorage.getItem("score"))
 const correctAnswer = num1 * num2;
 
+formElement.addEventListener("submit", () => {
+	const userAnswer = +inputElement.value
+	if(userAnswer === correctAnswer){
+		score++;
+		updateLocalStorage()
+	} else {
+		score--;
+		updateLocalStorage()
+	}
+}) 
 
+function updateLocalStorage(){
+	localStorage.setItem("score", JSON.stringify(score))
+}
